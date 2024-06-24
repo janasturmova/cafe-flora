@@ -1,6 +1,6 @@
 
 export const Contact = () => (
-    <section>
+    <section id='contact'>
         <div className="container">
           <h2>Kde nás najdete</h2>
           <div className="contact">

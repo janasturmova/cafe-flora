@@ -20,3 +20,10 @@ document.querySelector('#root').innerHTML = render(
     <Footer/>
   </div>
 );
+
+const rolloutElm = document.querySelector('.rollout-nav')
+
+document.querySelector('.nav-btn').addEventListener('click', () => rolloutElm.classList.toggle('nav-closed'))
+
+rolloutElm.addEventListener('click', () => rolloutElm.classList.toggle('nav-closed'))
+
