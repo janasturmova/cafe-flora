@@ -7,14 +7,22 @@ import { Menu } from '../components/Menu';
 import { Gallery } from '../components/Gallery';
 import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
-import { Drink } from '../components/Drink';
+
+const fetchDrinks = async () => {
+  const response = await fetch(`http://localhost:4000/api/drinks`);
+  const json = await response.json();
+  return json.data;
+};
+
+const drinksFetch = await fetchDrinks()
+
 
 document.querySelector('#root').innerHTML = render(
   <div className="page">
     <Header/>
     <main>
       <Banner/>
-      <Menu/>
+      <Menu drinks={drinksFetch}/>
       <Gallery/>
       <Contact/>      
     </main>
@@ -27,6 +35,7 @@ const rolloutElm = document.querySelector('.rollout-nav')
 document.querySelector('.nav-btn').addEventListener('click', () => rolloutElm.classList.toggle('nav-closed'))
 
 rolloutElm.addEventListener('click', () => rolloutElm.classList.toggle('nav-closed'))
+
 
 
 
