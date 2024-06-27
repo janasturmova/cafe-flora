@@ -1,6 +1,8 @@
 import './Header.css'
 
-export const Header = () => (
+export const Header = ({showMenu}) => {
+  if (showMenu === true) {
+    return ( 
     <header id='home'>
       <div className="header__content container">
         <div className="site-logo"></div>
@@ -15,5 +17,18 @@ export const Header = () => (
           </nav>
         </div>
       </div>
-    </header>
-)
+    </header> 
+
+    )} else {
+      return (
+        <header>
+        <div className="container header__content">
+          <div className="site-logo"></div>
+
+          <nav className="inline-nav">
+            <a href="/">Hlavní stránka</a>
+          </nav>
+        </div>
+      </header>
+    )}
+}

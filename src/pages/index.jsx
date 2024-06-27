@@ -19,7 +19,7 @@ const drinksFetch = await fetchDrinks()
 
 document.querySelector('#root').innerHTML = render(
   <div className="page">
-    <Header/>
+    <Header showMenu={true}/>
     <main>
       <Banner/>
       <Menu drinks={drinksFetch}/>
@@ -59,7 +59,7 @@ document.querySelectorAll('.drink__controls').forEach((form) => {
     })
     if (response.ok) {
       button.textContent = newOrderStatus ? 'Zrušit' : 'Objednat';
-      button.classList.toggle('order-btn--ordered', newOrderStatus);
+      button.classList.toggle('order-btn--ordered');
     } else {
       console.error(`Nefunguje to.`);
     }
