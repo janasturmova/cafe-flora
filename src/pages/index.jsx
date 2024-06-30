@@ -39,33 +39,21 @@ rolloutElm.addEventListener('click', () => rolloutElm.classList.toggle('nav-clos
 
 
 document.querySelectorAll('.drink__controls').forEach((form) => {
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('click',  (e) => {
     e.preventDefault();
-   
-    const id = form.dataset.id;
-    const button = form.querySelector(".order-btn")
-    const isOrdered = button.classList.contains("order-btn--ordered")
+    const id = form.dataset.id
 
-    const newOrderStatus = !isOrdered
+    const response = fetch(`http://localhost:4000/api/drinks/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([
+          { op: 'replace', path: '/ordered', value: false }
+        ])
+      })
 
-    const response = await fetch(`http://localhost:4000/api/drinks/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify([
-        { op: 'replace', path: '/ordered', value: newOrderStatus }
-      ])
-    })
-    if (response.ok) {
-      button.textContent = newOrderStatus ? 'Zrušit' : 'Objednat';
-      button.classList.toggle('order-btn--ordered');
-    } else {
-      console.error(`Nefunguje to.`);
-    }
+      window.location.reload();
   })
 })
 
-
-
- 

@@ -3,8 +3,7 @@ import { Layer } from './Layer';
 
 
 
-export const Drink = ({id, name, ordered, image,layers}) => (
-    <>
+export const Drink = ({id, name, ordered, image,layers}) => ( 
       <div className="drink">
         <div className="drink__product">
           <div className="drink__cup">
@@ -19,13 +18,14 @@ export const Drink = ({id, name, ordered, image,layers}) => (
         </div>
         <form className="drink__controls" data-id={id}>
           <input type="hidden" className="order-id" value={id} />
-          <button className="order-btn " type="submit">
-            Objednat
+          <button className={ordered ? "order-btn order-btn--ordered" : "order-btn "} type="submit">
+          {ordered ? "Zrušit" : "Objednat"}
           </button>
         </form>
-      </div>
-  </>
-)
+      </div> 
+      )
+  
+    
 
 
 
