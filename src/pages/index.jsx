@@ -16,7 +16,6 @@ const fetchDrinks = async () => {
 
 const drinksFetch = await fetchDrinks()
 
-
 document.querySelector('#root').innerHTML = render(
   <div className="page">
     <Header showMenu={true}/>
@@ -38,22 +37,47 @@ rolloutElm.addEventListener('click', () => rolloutElm.classList.toggle('nav-clos
 
 
 
-document.querySelectorAll('.drink__controls').forEach((form) => {
-  form.addEventListener('click',  (e) => {
-    e.preventDefault();
-    const id = form.dataset.id
 
-    const response = fetch(`http://localhost:4000/api/drinks/${id}`, {
+// document.querySelectorAll('.drink__controls').forEach((form) => {
+//   form.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     const id = form.dataset.id
+
+//     await fetch(`http://localhost:4000/api/drinks/${id}`, {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify([ 
+//           { op: 'replace', path: '/ordered', value: true }
+//         ])
+//       })   
+//       window.location.reload();
+//   })
+// })
+
+
+  document.querySelectorAll('.drink__controls').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      const id = form.dataset.id;
+      const button = form.querySelector(".order-btn")
+      const isOrdered = button.classList.contains("order-btn--ordered")
+  
+      const newOrderStatus = !isOrdered
+  
+      await fetch(`http://localhost:4000/api/drinks/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify([
-          { op: 'replace', path: '/ordered', value: false }
+          { op: 'replace', path: '/ordered', value: newOrderStatus }
         ])
       })
-
-      window.location.reload();
+      
+      button.textContent = newOrderStatus ? 'Zrušit' : 'Objednat';
+      button.classList.toggle('order-btn--ordered', newOrderStatus);
+    })
   })
-})
-
